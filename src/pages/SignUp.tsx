@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from './SignUp.module.css';
-
+import ImageUpload from '../components/ImageUpload';
 
 
 export default function SignUp() {
@@ -9,6 +9,7 @@ export default function SignUp() {
     <div className={styles.container}>
 
       <form className={styles.form}> 
+        <ImageUpload />
 
         <div className={styles.inputGroup}>
           <label className={styles.inputLabel} htmlFor="email">Email</label>
