@@ -20,8 +20,8 @@
 }
 
 .input {
-    border: 1px solid white;
-    border-radius: 12px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 24px;
     background-color: #6871EE;
     width: 284px;
     padding: 16px 8px;
@@ -29,7 +29,10 @@
 }
 
 .input:focus {
-  outline: 1px solid white; 
+  outline: none;
+  border: 1px solid #F8D94F;
+  box-shadow: 0 0 10px #f8d94f83;
+  transition: all 0.3s ease;
 }
 
 .inputLabel {
@@ -42,11 +45,17 @@
     background-color: #F8D94F;
     width: 300px;
     height: 48px;
-    border-radius: 12px;
+    border-radius: 24px;
     border: 1px solid #F8D94F;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.formButton:hover {
+  background-color: #FFD700;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
 }
 
 .title {
