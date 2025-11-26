@@ -4,7 +4,7 @@ import deleteIcon from "../assets/deleteIcon.svg";
 import editIcon from "../assets/editIcon.svg";
 import styles from "./ImageUpload.module.css";
 
-export default function ImageUpload () {
+export default function ImageUpload ({ onFileSelect }: { onFileSelect: (file: File | null) => void }) {
 
   const [preview, setPreview] = useState<string>(uploadIcon);
 
@@ -19,8 +19,22 @@ export default function ImageUpload () {
       return;
     }
 
+  const validFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+  const fileExtension = file.name.split('.').pop()?.toLowerCase();
+  
+  if (!fileExtension || !validFormats.includes(fileExtension)) {
+    alert('Invalid file format! Only jpg, jpeg, png, gif, and webp are allowed.');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+    setPreview(uploadIcon);
+    onFileSelect(null);
+    return;
+  }
+
     const url = URL.createObjectURL(file);
     setPreview(url);
+    onFileSelect(file);
   };
 
   const deleteImage = () => {
@@ -29,6 +43,7 @@ export default function ImageUpload () {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+    onFileSelect(null);
   };
 
   return (
