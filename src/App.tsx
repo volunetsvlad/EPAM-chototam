@@ -3,15 +3,31 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import style from "./App.module.css";
+import MyTasks from "./pages/MyTasks";
+import Profile from "./pages/Profile";
+import AllTasks from "./pages/AllTasks";
+import MainLayout from "./layouts/MainLayout";
+import AuthLayout from "./layouts/AuthLayout";
 
 function App() {
   return (
     <div className={style.app}>
-      <Routes>
+    <Routes>
+      {/* PAGES WITH NAVIGATION */}
+      <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/my-tasks" element={<MyTasks />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/all-tasks" element={<AllTasks />} />
+      </Route>
+
+      {/* PAGES WITHOUT NAVIGATION */}
+      <Route element={<AuthLayout />}>
         <Route path="/signup" element={<SignUp />} />
-      </Routes>
+        <Route path="/signin" element={<SignIn />} />
+      </Route>
+
+    </Routes>
     </div>
   );
 }
