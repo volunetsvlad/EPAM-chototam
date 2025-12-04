@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./SignIn.module.css";
-import logo from "../assets/logo.svg";
+import logo from "../../assets/logo.svg";
 import { useState } from "react";
 
 export default function SignIn() {

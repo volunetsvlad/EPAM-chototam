@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from './SignUp.module.css';
-import ImageUpload from '../components/ImageUpload';
+import ImageUpload from '../../components/ImageUpload';
 import { useState } from "react";
 
 
@@ -70,7 +70,6 @@ const handleSignUp = async () => {
 
   return (
     <div className={styles.container}>
-
       <form className={styles.form}> 
         <ImageUpload onFileSelect={(file) => setAvatarFile(file)} />
 
