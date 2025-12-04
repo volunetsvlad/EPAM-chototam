@@ -68,9 +68,6 @@ const handleSignUp = async () => {
   }
 };
 
-
-
-
   return (
     <div className={styles.container}>
 
