@@ -1,3 +1,3 @@
 export default function MyTasks() {
-  return <h1>My Tasks</h1>;
+  return <h1>All Tasks</h1>;
 }
