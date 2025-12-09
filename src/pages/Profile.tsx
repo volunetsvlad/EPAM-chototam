@@ -12,9 +12,17 @@ export default function Profile() {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [updating, setUpdating] = useState(false);
 
   const handleUpdate = async () => {
+  if (!name || name.trim().length < 2) {
+    alert('Name must be at least 2 characters');
+    return;
+  }
+
   try {
+    setUpdating(true);
+    
     const token = localStorage.getItem('token');
     
     if (!token) {
@@ -23,7 +31,6 @@ export default function Profile() {
     }
 
     const formData = new FormData();
-    formData.append('email', email);
     formData.append('name', name);
     
     if (avatarFile) {
@@ -31,7 +38,7 @@ export default function Profile() {
     }
 
     const response = await fetch('http://localhost:3000/api/users/me', {
-      method: 'PUT', 
+      method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`
       },
@@ -39,6 +46,12 @@ export default function Profile() {
     });
 
     const data = await response.json();
+
+    if (response.status === 401) {
+      localStorage.removeItem('token');
+      navigate('/signin');
+      return;
+    }
 
     if (response.ok) {
       alert('Profile updated successfully!');
@@ -48,6 +61,8 @@ export default function Profile() {
   } catch (error) {
     console.error('Update error:', error);
     alert('Error connecting to server');
+  } finally {
+    setUpdating(false);
   }
 };
 
@@ -56,9 +71,6 @@ export default function Profile() {
     navigate('/signin');
   };
 
-
-  //Це для loading..., приберіть символи коментарів щоб активувати бо там треба щоб працював сервер
-  /*
   const fetchUserData = async () => {
   try {
     setLoading(true);
@@ -110,7 +122,6 @@ export default function Profile() {
     useEffect(() => {
   fetchUserData();
 }, []);
-*/
 
 
   return (
@@ -129,7 +140,8 @@ export default function Profile() {
           <input 
             type="email" 
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            readOnly
+
             className={styles.input}
           />
         </div>
@@ -144,8 +156,12 @@ export default function Profile() {
           />
         </div>
 
-        <button className={styles.updateButton} onClick={handleUpdate}>
-          Update
+        <button 
+          className={styles.updateButton} 
+          onClick={handleUpdate}
+          disabled={updating}
+        >
+        {updating ? 'Updating...' : 'Update'}
         </button>
 
         <button className={styles.logoutButton} onClick={handleLogout}>
