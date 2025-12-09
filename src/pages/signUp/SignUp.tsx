@@ -47,7 +47,7 @@ const handleSignUp = async () => {
         formData.append('avatar', avatarFile);
       }
       
-      const response = await fetch('http://localhost:3000/api/auth/registration', {
+      const response = await fetch('https://todo-backend-rpf2.onrender.com/api/auth/registration', {
         method: 'POST',
         body: formData
       });

@@ -1,0 +1,44 @@
+.input {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  align-items: center;
+}
+
+.description {
+  width: 300px;
+  height: 80px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  resize: none;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  gap: 20px;
+}
+
+.addTaskButton {
+  background-color: #F8D94F;
+  width: 300px;
+  height: 48px;
+  border-radius: 24px;
+  border: 1px solid #F8D94F;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+}

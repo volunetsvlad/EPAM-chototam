@@ -14,6 +14,7 @@ interface TaskItemProps {
 
 const TaskItem: React.FC<TaskItemProps> = ({
   title,
+  completed,
   onToggle,
   onDelete,
   onEdit,
@@ -23,7 +24,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
       <label className={styles.checkboxWrapper}>
         <input
           type="checkbox"
-        //   checked={completed}
+          checked={completed}
           onChange={onToggle}
           className={styles.checkbox}
         />
