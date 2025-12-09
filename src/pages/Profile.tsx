@@ -51,7 +51,7 @@ export default function Profile() {
       formData.append('avatar', avatarFile);
     }
 
-    const response = await fetch('http://localhost:3000/api/users/me', {
+    const response = await fetch('https://todo-backend-rpf2.onrender.com/api/users/me', {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -96,7 +96,7 @@ const handleDeleteAvatar = async () => {
       return;
     }
 
-    const response = await fetch('http://localhost:3000/api/users/me/avatar', {
+    const response = await fetch('https://todo-backend-rpf2.onrender.com/api/users/me/avatar', {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -135,7 +135,7 @@ const handleDeleteAvatar = async () => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-    const response = await fetch('http://localhost:3000/api/users/me', {
+    const response = await fetch('https://todo-backend-rpf2.onrender.com/api/users/me', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
