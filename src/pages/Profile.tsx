@@ -54,7 +54,8 @@ export default function Profile() {
     const response = await fetch('https://todo-backend-rpf2.onrender.com/api/users/me', {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${token}`
+          "Access-Token": token ?? "",
+          "Content-Type": "application/json",
       },
       body: formData
     });
@@ -99,7 +100,8 @@ const handleDeleteAvatar = async () => {
     const response = await fetch('https://todo-backend-rpf2.onrender.com/api/users/me/avatar', {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${token}`
+          "Access-Token": token ?? "",
+          "Content-Type": "application/json",
       }
     });
 
@@ -138,7 +140,8 @@ const handleDeleteAvatar = async () => {
     const response = await fetch('https://todo-backend-rpf2.onrender.com/api/users/me', {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`
+          "Access-Token": token ?? "",
+          "Content-Type": "application/json",
       },
       signal: controller.signal
     });

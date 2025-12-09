@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from './AddTask.module.css';
 
 export default function AddTask() {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -49,10 +52,10 @@ export default function AddTask() {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Task added successfully");
         setTitle("");
         setDescription("");
         fetchTasks();
+        navigate('/');
       } else {
         alert(`Error: ${data.error || data.errors?.join(", ")}`);
       }
