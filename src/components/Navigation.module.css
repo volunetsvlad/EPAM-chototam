@@ -38,3 +38,32 @@
   gap: 20px;
   padding-right: 28px;
 }
+
+.addTaskButton {
+  background-color: #F8D94F;
+  width: 139px;
+  height: 48px;
+  border-radius: 24px;
+  border: 1px solid #F8D94F;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  line-height: 48px;
+}
+
+.navCenter {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navInfo {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}
