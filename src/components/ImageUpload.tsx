@@ -4,8 +4,13 @@ import deleteIcon from "../assets/deleteIcon.svg";
 import editIcon from "../assets/editIcon.svg";
 import styles from "./ImageUpload.module.css";
 
-export default function ImageUpload ({ onFileSelect }: { onFileSelect: (file: File | null) => void }) {
-
+export default function ImageUpload ({ 
+  onFileSelect, 
+  onDelete 
+}: { 
+  onFileSelect: (file: File | null) => void;
+  onDelete?: () => void;
+}) {
   const [preview, setPreview] = useState<string>(uploadIcon);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -44,6 +49,10 @@ export default function ImageUpload ({ onFileSelect }: { onFileSelect: (file: Fi
       fileInputRef.current.value = "";
     }
     onFileSelect(null);
+
+    if (onDelete) {
+    onDelete();
+  }
   };
 
   return (

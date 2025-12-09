@@ -13,10 +13,13 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [updating, setUpdating] = useState(false);
+  const [avatarToDelete, setAvatarToDelete] = useState(false);
+  const [nameError, setNameError] = useState('');
 
   const handleUpdate = async () => {
+  setNameError('');
   if (!name || name.trim().length < 2) {
-    alert('Name must be at least 2 characters');
+    setNameError('Name must be at least 2 characters');
     return;
   }
 
@@ -28,6 +31,17 @@ export default function Profile() {
     if (!token) {
       navigate('/signin');
       return;
+    }
+
+    if (avatarToDelete) {
+      try {
+        await handleDeleteAvatar();
+        setAvatarToDelete(false);
+      } catch (error) {
+        alert('Failed to delete avatar');
+        setUpdating(false);
+        return;
+      }
     }
 
     const formData = new FormData();
@@ -55,14 +69,55 @@ export default function Profile() {
 
     if (response.ok) {
       alert('Profile updated successfully!');
-    } else {
-      alert('Failed to update: ' + (data.error || 'Unknown error'));
-    }
+      setAvatarFile(null);
+}   else {
+      let errorMessage = 'Unknown error';
+    if (data.error) {
+      errorMessage = data.error;
+  } else if (data.errors && Array.isArray(data.errors)) {
+      errorMessage = data.errors.join(', ');
+  }
+  alert('Failed to update: ' + errorMessage);
+}
   } catch (error) {
     console.error('Update error:', error);
     alert('Error connecting to server');
   } finally {
     setUpdating(false);
+  }
+};
+
+const handleDeleteAvatar = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      navigate('/signin');
+      return;
+    }
+
+    const response = await fetch('http://localhost:3000/api/users/me/avatar', {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (response.status === 401) {
+      localStorage.removeItem('token');
+      navigate('/signin');
+      return;
+    }
+
+    if (response.ok) {
+      return true;
+    } else {
+      const data = await response.json();
+      throw new Error(data.error || 'Failed to delete avatar');
+    }
+  } catch (error) {
+    console.error('Delete avatar error:', error);
+    throw error;
   }
 };
 
@@ -133,7 +188,10 @@ export default function Profile() {
 
          {!loading && !error && (
         <> 
-        <ImageUpload onFileSelect={(file) => setAvatarFile(file)} />
+        <ImageUpload 
+          onFileSelect={(file) => setAvatarFile(file)}
+          onDelete={() => setAvatarToDelete(true)}
+        />
 
         <div className={styles.inputGroup}>
           <label>Email</label>
@@ -141,7 +199,6 @@ export default function Profile() {
             type="email" 
             value={email}
             readOnly
-
             className={styles.input}
           />
         </div>
@@ -151,10 +208,16 @@ export default function Profile() {
           <input 
             type="text" 
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+            setName(e.target.value);
+            if (nameError) {
+              setNameError('');
+            }
+          }   }
             className={styles.input}
           />
         </div>
+        {nameError && <p style={{color: 'red', fontSize: '12px', marginTop: '-15px'}}>{nameError}</p>}
 
         <button 
           className={styles.updateButton} 
