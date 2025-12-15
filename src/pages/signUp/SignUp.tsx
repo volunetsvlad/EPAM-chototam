@@ -11,7 +11,7 @@ export default function SignUp() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [, setAvatarFile] = useState<File | null>(null);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const validateForm = () => {
@@ -38,24 +38,24 @@ export default function SignUp() {
 const handleSignUp = async () => {
   if (validateForm()) {
     try {
-      const formData = new FormData();
-      formData.append('email', email);
-      formData.append('name', name);
-      formData.append('password', password);
+      const payload = {
+        email: email,
+        username: name,
+        password: password
+      };
 
-      if (avatarFile) {
-        formData.append('avatar', avatarFile);
-      }
-      
-      const response = await fetch('https://todo-backend-rpf2.onrender.com/api/auth/registration', {
+      const response = await fetch('https://backend-project-cgl3.onrender.com/api/auth/registration/', {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.access_token);
         alert('Sign up successful!');
         navigate('/');
       } else {

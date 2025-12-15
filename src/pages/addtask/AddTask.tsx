@@ -13,7 +13,7 @@ export default function AddTask() {
   const fetchTasks = async () => {
     if (!token) return;
     try {
-      const res = await fetch("https://todo-backend-rpf2.onrender.com/api/tasks/all?page=1&tasksPerPage=100", {
+      const res = await fetch("https://backend-project-cgl3.onrender.com/api/tasks/all?page=1&tasksPerPage=100", {
         headers: {
           "Access-Token": token,
         },
@@ -41,7 +41,7 @@ export default function AddTask() {
     if (description) formData.append("description", description);
 
     try {
-      const res = await fetch("https://todo-backend-rpf2.onrender.com/api/tasks", {
+      const res = await fetch("https://backend-project-cgl3.onrender.com/api/tasks", {
         method: "POST",
         headers: {
           "Access-Token": token ?? "",

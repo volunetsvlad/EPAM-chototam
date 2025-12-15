@@ -28,7 +28,7 @@ export default function SignIn() {
   const handleSignIn = async () => {
   if (validateForm()) {
     try {
-      const response = await fetch('https://todo-backend-rpf2.onrender.com/api/auth/login', {
+      const response = await fetch('https://backend-project-cgl3.onrender.com/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export default function SignIn() {
 
       if (response.ok) {
         // Success! Save the token and redirect
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.access_token);
         alert('Login successful!');
         navigate('/'); // Redirect to home page
       } else {
