@@ -9,7 +9,7 @@ export default function Profile() {
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [, setAvatarFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [updating, setUpdating] = useState(false);
