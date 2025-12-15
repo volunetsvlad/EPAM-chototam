@@ -15,7 +15,7 @@ export default function AddTask() {
     try {
       const res = await fetch("https://backend-project-cgl3.onrender.com/api/tasks/all?page=1&tasksPerPage=100", {
         headers: {
-          "Access-Token": token,
+          "Authorization": `Bearer ${token}`,
         },
       });
       const data = await res.json();
@@ -36,17 +36,17 @@ export default function AddTask() {
   const addTask = async () => {
     if (!title) return alert("Title is required");
 
-    const formData = new FormData();
-    formData.append("title", title);
-    if (description) formData.append("description", description);
-
     try {
       const res = await fetch("https://backend-project-cgl3.onrender.com/api/tasks", {
         method: "POST",
         headers: {
-          "Access-Token": token ?? "",
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-        body: formData,
+        body: JSON.stringify({
+          title: title,
+          description: description
+        })
       });
 
       const data = await res.json();

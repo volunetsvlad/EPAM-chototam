@@ -24,9 +24,6 @@ export default function Navigation() {
           <NavLink className={styles.navLink} to="/profile">
             Profile
           </NavLink>
-          <NavLink className={styles.navLink} to="/all-tasks">
-            Common Tasks
-          </NavLink>
         </div>
       </nav>
     </header>
