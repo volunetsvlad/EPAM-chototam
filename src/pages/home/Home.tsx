@@ -18,30 +18,24 @@ export default function Home() {
     fetch("https://backend-project-cgl3.onrender.com/api/tasks", {
        headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        "Access-Token": token,
       },
     })
       .then(res => res.json())
       .then(data => {
         setTasks(data);
       })
-      .catch(err => {
-        console.error(err);
-      });
+      .catch(err => console.error(err));
   }, []);
 
   const handleDelete = async (taskId: string) => {
-    const confirmed = confirm("Are you sure you want to delete this task?");
-    if (!confirmed) return;
-
+    if (!window.confirm("Are you sure you want to delete this task?")) return;
     try {
       const res = await fetch(
         `https://backend-project-cgl3.onrender.com/api/tasks/${taskId}`,
         {
           method: "DELETE",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-          },
+          headers: { "Access-Token": token ?? "" },
         }
       );
       const data = await res.json();
@@ -63,7 +57,7 @@ export default function Home() {
         {
           method: "PATCH",
           headers: {
-            "Authorization": `Bearer ${token}`,
+            "Access-Token": token ?? "",
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ done: !current }),

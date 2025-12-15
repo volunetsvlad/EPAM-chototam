@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./TaskItem.module.css";
 import deleteIcon from "../../assets/deleteIcon.svg";
-// import editIcon from "../../assets/editIcon.svg";
+import editIcon from "../../assets/editIcon.svg";
 
 
 interface TaskItemProps {
@@ -17,7 +17,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
   completed,
   onToggle,
   onDelete,
-  // onEdit,
+  onEdit,
 }) => {
   return (
     <div className={styles.container}>
@@ -41,13 +41,13 @@ const TaskItem: React.FC<TaskItemProps> = ({
       />
         </button>
 
-        {/* <button onClick={onEdit} className={styles.iconButton}>
+        <button onClick={onEdit} className={styles.iconButton}>
           <img
         className={styles.editIcon}
         src={editIcon}
         alt="Edit Icon"
       />
-        </button> */}
+        </button>
       </div>
     </div>
   );

@@ -44,13 +44,20 @@ export default function Profile() {
       }
     }
 
+    const formData = new FormData();
+    formData.append('name', name);
+    
+    if (avatarFile) {
+      formData.append('avatar', avatarFile);
+    }
+
     const response = await fetch('https://backend-project-cgl3.onrender.com/api/users/me', {
       method: 'PUT',
       headers: {
-          "Authorization": `Bearer ${token}`,
+          "Access-Token": token ?? "",
           "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username: name.trim() }),
+      body: formData
     });
 
     const data = await response.json();
@@ -93,7 +100,7 @@ const handleDeleteAvatar = async () => {
     const response = await fetch('https://backend-project-cgl3.onrender.com/api/users/me/avatar', {
       method: 'DELETE',
       headers: {
-          "Authorization": `Bearer ${token}`,
+          "Access-Token": token ?? "",
           "Content-Type": "application/json",
       }
     });
@@ -117,9 +124,6 @@ const handleDeleteAvatar = async () => {
 };
 
   const handleLogout = () => {
-    const confirmed = confirm("Are you sure you want to Log out?");
-    if (!confirmed) return;
-
     localStorage.removeItem('token');
     navigate('/signin');
   };
@@ -136,7 +140,7 @@ const handleDeleteAvatar = async () => {
     const response = await fetch('https://backend-project-cgl3.onrender.com/api/users/me', {
       method: 'GET',
       headers: {
-          "Authorization": `Bearer ${token}`,
+          "Access-Token": token ?? "",
           "Content-Type": "application/json",
       },
       signal: controller.signal
