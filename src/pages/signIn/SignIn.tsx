@@ -43,8 +43,7 @@ export default function SignIn() {
 
       if (response.ok) {
         // Success! Save the token and redirect
-        localStorage.setItem('token', data.access_token);
-        alert('Login successful!');
+        localStorage.setItem('token', data.user.access_token);
         navigate('/'); // Redirect to home page
       } else {
         // Failed - show error

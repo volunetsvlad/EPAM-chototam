@@ -44,7 +44,7 @@ const handleSignUp = async () => {
         password: password
       };
 
-      const response = await fetch('https://backend-project-cgl3.onrender.com/api/auth/registration/', {
+      const response = await fetch('https://backend-project-cgl3.onrender.com/api/auth/registration', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +56,6 @@ const handleSignUp = async () => {
 
       if (response.ok) {
         localStorage.setItem('token', data.access_token);
-        alert('Sign up successful!');
         navigate('/');
       } else {
         alert('Sign up failed: ' + (data.error || 'Unknown error'));
