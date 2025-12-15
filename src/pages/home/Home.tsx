@@ -15,7 +15,7 @@ export default function Home() {
   const token = localStorage.getItem("token") || "";
 
   useEffect(() => {
-    fetch("https://todo-backend-rpf2.onrender.com/api/tasks", {
+    fetch("https://backend-project-cgl3.onrender.com/api/tasks", {
        headers: {
         "Content-Type": "application/json",
         "Access-Token": token,
@@ -32,7 +32,7 @@ export default function Home() {
     if (!window.confirm("Are you sure you want to delete this task?")) return;
     try {
       const res = await fetch(
-        `https://todo-backend-rpf2.onrender.com/api/tasks/${taskId}`,
+        `https://backend-project-cgl3.onrender.com/api/tasks/${taskId}`,
         {
           method: "DELETE",
           headers: { "Access-Token": token ?? "" },
@@ -53,7 +53,7 @@ export default function Home() {
   const handleToggle = async (taskId: string, current: boolean) => {
     try {
       const res = await fetch(
-        `https://todo-backend-rpf2.onrender.com/api/tasks/${taskId}`,
+        `https://backend-project-cgl3.onrender.com/api/tasks/${taskId}`,
         {
           method: "PATCH",
           headers: {
